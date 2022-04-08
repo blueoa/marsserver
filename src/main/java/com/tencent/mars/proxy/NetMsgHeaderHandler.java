@@ -22,6 +22,7 @@ import com.tencent.mars.utils.LogUtils;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -30,6 +31,11 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
@@ -171,14 +177,13 @@ public class NetMsgHeaderHandler extends ChannelInboundHandlerAdapter {
      * @return
      */
     private InputStream doHttpRequest(String path, InputStream data) {
-//        final Client client = ClientBuilder.newClient(new ClientConfig());
-//        final InputStream response = client.target("http://localhost:8080/")
-//                .path(path)
-//                .request(MediaType.APPLICATION_OCTET_STREAM)
-//                .post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM), InputStream.class);
-//
-//        return response;
-        throw new UnsupportedOperationException();
+        final Client client = ClientBuilder.newClient(new ClientConfig());
+        final InputStream response = client.target("http://localhost:8080/")
+                .path(path)
+                .request(MediaType.APPLICATION_OCTET_STREAM)
+                .post(Entity.entity(data, MediaType.APPLICATION_OCTET_STREAM), InputStream.class);
+
+        return response;
     }
 
     /**

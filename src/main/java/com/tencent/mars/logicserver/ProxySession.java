@@ -14,7 +14,6 @@
 
 package com.tencent.mars.logicserver;
 
-import com.hazelcast.core.IMap;
 import com.tencent.mars.datacenter.CacheData;
 
 import java.sql.PreparedStatement;
@@ -33,20 +32,48 @@ public class ProxySession {
     public static class Manager {
 
         private static Map<String, ChannelHandlerContext> channels = new HashMap<>();
+        private static Map<String, PreparedStatement> cachedStatement = new HashMap<>();
 
-        public static void connect() {
-
+        public static boolean connect() {
+            return false;
         }
 
         public static void disconnect() {
-
         }
 
-        public static ProxySession get(ChannelHandlerContext ctx){
-            IMap<String,ProxySession> sessionIMap = CacheData.getSessionMap();
-            return sessionIMap.get(ctx);
+        public static ProxySession get(ChannelHandlerContext ctx) {
+            final String name = ctx.name();
+
+            return null;
         }
 
+        public static ChannelHandlerContext getChannelContextByUin(final int uin) {
+
+            return null;
+        }
+
+        public static ChannelHandlerContext getChannelContextByClientAddr(String clientAddr) {
+            try{
+                return channels.get(clientAddr);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        public static void updateChannelsByClientAddr(String clientAddr, ChannelHandlerContext context) {
+            try {
+                channels.put(clientAddr, context);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public static void updateByCTX(ProxySession session, ChannelHandlerContext ctx) {
+        }
     }
 
     public int uin;

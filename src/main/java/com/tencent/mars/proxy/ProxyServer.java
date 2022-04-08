@@ -93,7 +93,7 @@ public class ProxyServer {
             channelFuture.channel().closeFuture().sync();
         }
         catch (Exception e) {
-            e.printStackTrace();
+
         }
         finally {
             workerGroup.shutdownGracefully();

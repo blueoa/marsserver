@@ -16,12 +16,10 @@ package com.tencent.mars.datacenter;
 
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
+import com.hazelcast.core.MultiMap;
 import com.tencent.mars.logicserver.ProxySession;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -34,14 +32,14 @@ public class CacheData {
 
     private static HazelcastInstance hazelcastInstance;
 
-    public static IMap<String, ProxySession> getSessionMap() {
-        return hazelcastInstance.getMap("session");
+    public static MultiMap<String, ProxySession> prepareStatement(String sql) throws SQLException {
+        return hazelcastInstance.getMultiMap("userSession");
     }
 
     public static void connect() {
         try {
-            Hazelcast.newHazelcastInstance();
-            logger.info("opened hazelcast successfully");
+            hazelcastInstance = Hazelcast.newHazelcastInstance();
+            logger.info("opened database successfully");
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
