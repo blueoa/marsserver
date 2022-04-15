@@ -118,8 +118,6 @@ public class ProxyServer {
 
         // init non-persistent database
         CacheData.connect();
-        ProxySession.Manager.connect();
-
         int port;
         if (args.length > 0) {
             port = Integer.parseInt(args[0]);
@@ -127,8 +125,6 @@ public class ProxyServer {
             port = 8081;
         }
         new ProxyServer(port).start();
-
-        ProxySession.Manager.disconnect();
         CacheData.disconnect();
     }
 }

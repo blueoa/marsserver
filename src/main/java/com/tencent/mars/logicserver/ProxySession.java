@@ -14,68 +14,10 @@
 
 package com.tencent.mars.logicserver;
 
-import com.tencent.mars.datacenter.CacheData;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
-import io.netty.channel.ChannelHandlerContext;
-
 /**
  * Created by zhaoyuan on 16/2/2.
  */
 public class ProxySession {
 
-    public static class Manager {
 
-        private static Map<String, ChannelHandlerContext> channels = new HashMap<>();
-        private static Map<String, PreparedStatement> cachedStatement = new HashMap<>();
-
-        public static boolean connect() {
-            return false;
-        }
-
-        public static void disconnect() {
-        }
-
-        public static ProxySession get(ChannelHandlerContext ctx) {
-            final String name = ctx.name();
-
-            return null;
-        }
-
-        public static ChannelHandlerContext getChannelContextByUin(final int uin) {
-
-            return null;
-        }
-
-        public static ChannelHandlerContext getChannelContextByClientAddr(String clientAddr) {
-            try{
-                return channels.get(clientAddr);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        public static void updateChannelsByClientAddr(String clientAddr, ChannelHandlerContext context) {
-            try {
-                channels.put(clientAddr, context);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public static void updateByCTX(ProxySession session, ChannelHandlerContext ctx) {
-        }
-    }
-
-    public int uin;
-    public String key;
 }
